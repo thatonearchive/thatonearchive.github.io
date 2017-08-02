@@ -19,6 +19,7 @@
 		</style>
 		<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
 		<script>
+
 var client = new WebTorrent()
 
 // The Completionist Episode 1 - Megaman X
@@ -32,11 +33,22 @@ client.add(torrentId, function (torrent) {
 
   // Display the file by adding it to the DOM.
   // Supports video, audio, image files, and more!
+  console.log(file)
   file.appendTo('body')
+
+  // Trigger statistics refresh
+  setInterval(onProgress, 500)
+  var h1 = document.getElementsByTagName('h1')[0]
+  onProgress()
+
+  function onProgress () {
+    h1.textContent = '🐻 ' + (100 - Math.round(torrent.progress * 100 * 100) / 100) + '% left to bear with'
+  }
 })
+
 		</script>
 	</head>
 	<body>
-		<h1>An initial PoC</h1>
+		<h1>🐻 Loading, bear with me a little 🐻</h1>
 	</body>
 </html>
